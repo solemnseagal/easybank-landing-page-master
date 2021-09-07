@@ -1,0 +1,217 @@
+.menu {
+  margin: 0;
+  padding: 24px 0;
+  height: 80px;
+  display: flex;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+  border-bottom: 2px solid black;
+  overflow: hidden;
+
+  // logo
+
+  &_logo img {
+    width: 8.8125rem;
+    height: 1.325rem;
+    cursor: pointer;
+  }
+
+  // navigation links
+
+  &_links {
+    display: flex;
+
+    #{&}_item {
+      font-size: 14px;
+      position: relative;
+      font-family: "Public Sans", sans-serif;
+      font-weight: 400;
+      color: $Grayish-Blue;
+      cursor: pointer;
+      @include transt;
+
+      &:not(:end) {
+        margin-right: 32px;
+      }
+    }
+    & .active {
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        height: 3px;
+        top: 270%;
+        right: 0;
+        left: 0;
+        background: linear-gradient(to right, $Lime-Green, $Bright-Cyan);
+      }
+    }
+  }
+
+  // burger menu
+  &_burger {
+    margin: 0;
+    border: 0;
+    width: 26px;
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+
+    &_item {
+      width: 26px;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      background: $Dark-Blue;
+      display: block;
+      top: 50%;
+      transform: translate(0, -50%);
+      @include transt;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 26px;
+        height: 2px;
+        top: -6px;
+        position: absolute;
+        background: $Dark-Blue;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        width: 26px;
+        height: 2px;
+        top: 6px;
+        position: absolute;
+        background: $Dark-Blue;
+      }
+
+      &.open {
+        transform: rotate(-180deg);
+        background: transparent;
+
+        &::before {
+          transform: rotate(45deg);
+          top: 4%;
+          left: -4.4%;
+          @include transt;
+        }
+
+        &::after {
+          transform: rotate(-45deg);
+          @include transt;
+          top: -0.8%;
+          right: 4.4%;
+        }
+      }
+    }
+  }
+
+  // button
+
+  &_btn {
+    background: linear-gradient(to right, $Lime-Green, $Bright-Cyan);
+    border: 0;
+    padding: 0.875rem 2.375rem;
+    cursor: pointer;
+    font-weight: 400;
+    border-radius: 50px;
+    font-size: 14px;
+    color: $White;
+  }
+}
+
+// items justify and alignment properties
+.jc {
+  &_sa {
+    justify-content: space-around;
+  }
+  &_sb {
+    justify-content: space-between;
+  }
+  &_c {
+    justify-content: center;
+  }
+}
+
+.ai_c {
+  align-items: center;
+}
+
+// only desktop navbar
+.hide_for_desk {
+  @include breakpoint-down(medium) {
+    display: none;
+    @include transt;
+  }
+}
+
+// only mobile navbar
+.hide_for_mob {
+  @include breakpoint-up(large) {
+    display: none;
+    visibility: hidden;
+    .menu_links_item {
+      display: block;
+      font-size: 1.2rem;
+      padding: 20px;
+      transform: translateY(-100%);
+    }
+    // @include transt;
+
+    &.open {
+      // @include transt;
+      background: gray;
+      visibility: visible;
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      left: 0;
+      top: 0;
+
+      .menu_links {
+        display: flex;
+        flex-flow: column wrap;
+        padding: 10px;
+        left: 1rem;
+        height: 100vh;
+        width: 100vw;
+        top: 1rem;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        &_item {
+          transform: translateY(0);
+          &::after {
+            display: none;
+          }
+          // @include transt;
+
+          // &.open {
+          //   transform: translateY(0);
+          //   // @include transt;
+          // }
+        }
+      }
+    }
+  }
+}
+
+// Navigation layout for different screen widths
+
+@include breakpoint-down(small) {
+  .menu {
+    justify-content: space-between;
+    padding: 24px;
+  }
+}
+@media screen and (min-width: 40em) {
+  .menu {
+    justify-content: space-around;
+  }
+}
